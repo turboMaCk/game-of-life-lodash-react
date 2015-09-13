@@ -12,8 +12,8 @@ export default class Board extends Component {
 
     // deafult props
     this.props = {
-      rows: 40,
-      cols: 40
+      rows: 50,
+      cols: 50
     }
 
     // default state
@@ -28,7 +28,6 @@ export default class Board extends Component {
       generationNumber: 0
     };
 
-    this.generations = [];
     this.player = false;
   }
 
@@ -88,8 +87,6 @@ export default class Board extends Component {
       });
     });
 
-    this.generations.push(currentGeneration);
-
     this.setState({
       boardState: nextGeneration,
       generationNumber: this.state.generationNumber + 1
@@ -101,7 +98,7 @@ export default class Board extends Component {
       window.clearInterval(this.player);
       this.player = false;
     } else {
-      this.player = window.setInterval(this.nextGeneration.bind(this), 50);
+      this.player = window.setInterval(this.nextGeneration.bind(this), 1);
     }
   }
 
