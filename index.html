@@ -3,6 +3,32 @@
   <head>
     <meta charset="utf=8">
     <title>Game of React</title>
+
+    <style>
+      body {
+        font-size: 0;
+        background: #8AB8C3;
+      }
+      .board-row{
+        max-width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: center;
+      }
+      .board {
+        margin: 20px 5px;
+      }
+      .cell {
+        display: inline-block;
+        height: 10px;
+        width: 10px;
+        margin: 1px;
+        background: #0B4640;
+      }
+      .cell.alive {
+        background: #D5FFE8;
+      }
+    </style>
   </head>
 
   <body>

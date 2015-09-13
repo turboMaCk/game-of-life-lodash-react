@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Cell from './cell';
+import Board from './board';
 
 export default class App extends Component {
   render() {
-    return <h1><Cell /></h1>;
+    return <Board />;
   }
 };

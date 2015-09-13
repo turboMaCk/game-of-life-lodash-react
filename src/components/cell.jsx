@@ -4,19 +4,22 @@ export default class Cell extends Component {
   constructor() {
     super();
 
-    this.toggleActive = this.toggleActive.bind(this);
+    this.toggleLife = this.toggleLife.bind(this);
+  }
 
-    this.state = {
-      active: false
-    };
-  }
-  toggleActive(e) {
+  toggleLife(e) {
     e.preventDefault();
-    console.log(this.state.active);
-    this.setState({ active: !this.state.active });
+
+    console.log(this.props.x, this.props.y, this.props.alive);
+    this.props.action(this.props.x, this.props.y);
   }
+
+  cellClassName() {
+    return this.props.alive ? "cell alive" : "cell dead";
+  }
+
   render() {
-    var active = this.state.active;
-    return <div class="cell" onClick={this.toggleActive}>{active.toString()}</div>;
+    var className = this.cellClassName();
+    return <div className={className} onClick={this.toggleLife}></div>;
   }
 };

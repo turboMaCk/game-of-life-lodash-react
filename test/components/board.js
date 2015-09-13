@@ -8,11 +8,11 @@ const should = chai.should();
 
 const TestUtils = React.addons.TestUtils;
 
-import App from '../../src/components/app';
+import Board from '../../src/components/board';
 
-describe('AppComponent', () => {
+describe('BoardComponent', () => {
   it('renders', () => {
-    var app = TestUtils.renderIntoDocument(<App message="Hello" />);
-    TestUtils.isCompositeComponent(app).should.be.true;
+    var board = TestUtils.renderIntoDocument(<Board/>);
+    TestUtils.isCompositeComponent(board).should.be.true;
   });
 });
