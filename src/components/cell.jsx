@@ -10,12 +10,15 @@ export default class Cell extends Component {
   toggleLife(e) {
     e.preventDefault();
 
-    console.log(this.props.x, this.props.y, this.props.alive);
     this.props.action(this.props.x, this.props.y);
   }
 
   cellClassName() {
-    return this.props.alive ? "cell alive" : "cell dead";
+    if (this.props.alive) {
+      return this.props.willDie ? 'cell alive willdie' : 'cell alive survive';
+    } else {
+      return this.props.willBeBorn ? 'cell dead willborn' : 'cell dead willnotborn';
+    }
   }
 
   render() {

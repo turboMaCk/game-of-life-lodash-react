@@ -5,11 +5,14 @@
     <title>Game of React</title>
 
     <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
       body {
-        font-size: 0;
         background: #8AB8C3;
       }
       .board-row{
+        font-size: 0;
         max-width: 100%;
         overflow: hidden;
         white-space: nowrap;
@@ -24,9 +27,16 @@
         width: 10px;
         margin: 1px;
         background: #0B4640;
+        text-align: center;
       }
       .cell.alive {
         background: #D5FFE8;
+      }
+      .cell.willdie {
+        border: 1px solid #0B4640
+      }
+      .cell.willborn {
+        border: 1px solid #D5FFE8
       }
     </style>
   </head>
