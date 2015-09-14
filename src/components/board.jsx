@@ -9,6 +9,7 @@ export default class Board extends Component {
     this.toggleCell = this.toggleCell.bind(this);
     this.nextGeneration = this.nextGeneration.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
+    this.toggleForecast = this.toggleForecast.bind(this);
 
     // deafult props
     this.props = {
@@ -25,7 +26,8 @@ export default class Board extends Component {
 
     this.state = {
       boardState: boardState,
-      generationNumber: 0
+      generationNumber: 0,
+      forecast: false
     };
 
     this.player = false;
@@ -61,7 +63,7 @@ export default class Board extends Component {
     return (aliveNeighborCount < 2 || aliveNeighborCount > 3);
   }
 
-  cellWillBeBorn(x,y) {
+  cellWillBeBorn(x, y) {
     var aliveNeighborCount = this.aliveNeighborCount(x, y);
     return aliveNeighborCount === 3;
   }
@@ -102,13 +104,23 @@ export default class Board extends Component {
     }
   }
 
+  toggleForecast() {
+    this.setState({ forecast: !this.state.forecast });
+  }
+
   render() {
     var action = this.toggleCell;
 
     var board = this.state.boardState.map((col, x) => {
       var cels = col.map((alive, y) => {
-        var willDie = this.cellWillDie(x, y);
-        var willBeBorn = this.cellWillBeBorn(x, y);
+        var willDie, willBeBorn;
+        if (this.state.forecast) {
+          willDie = this.cellWillDie(x, y);
+          willBeBorn = this.cellWillBeBorn(x, y);
+        } else {
+          willDie = false;
+          willBeBorn = false;
+        }
 
         return <Cell alive={alive} x={x} y={y} action={action} willDie={willDie} willBeBorn={willBeBorn} />;
       });
@@ -119,6 +131,7 @@ export default class Board extends Component {
     return <div>
       <button onClick={this.nextGeneration}>Next generation</button>
       <button onClick={this.togglePlay}>play/stop</button>
+      <button onClick={this.toggleForecast}>Forecast on/off</button><br />
       Generation number: {this.state.generationNumber}<br />
       <div className="board">{board}</div>
     </div>;
