@@ -11,15 +11,21 @@ export default class Board extends Component {
     this.togglePlay = this.togglePlay.bind(this);
     this.toggleForecast = this.toggleForecast.bind(this);
 
-    // deafult props
-    this.props = {
+    this.defaultProps = {
       rows: 50,
       cols: 50
-    }
+    };
+
+    this.cache = {};
 
     // default state
-    var boardState = _.times(this.props.rows, () => {
-      return _.times(this.props.cols, () => {
+    this.player = false;
+  }
+
+  componentWillMount(props) {
+    props = this.props || this.defaultProps;
+    var boardState = _.times(props.rows, () => {
+      return _.times(props.cols, () => {
         return false;
       });
     });
@@ -29,8 +35,6 @@ export default class Board extends Component {
       generationNumber: 0,
       forecast: false
     };
-
-    this.player = false;
   }
 
   getNeighbors(x, y) {
@@ -41,7 +45,7 @@ export default class Board extends Component {
     var neighbors = helper.map((offsetX) => {
       var newX = x+offsetX;
 
-      if (!state[newX]) { return };
+      if (!state[newX]) { return; }
 
       return helper.map((offsetY) => {
         var newY = y + offsetY;
@@ -50,7 +54,7 @@ export default class Board extends Component {
     });
 
     return _.filter(_.flatten(neighbors, true), (item) => {
-      return typeof item !== 'undefined'
+      return typeof item !== 'undefined';
     });
   }
 
@@ -137,3 +141,4 @@ export default class Board extends Component {
     </div>;
   }
 };
+

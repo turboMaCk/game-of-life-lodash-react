@@ -12,7 +12,7 @@ import App from '../../src/components/app';
 
 describe('AppComponent', () => {
   it('renders', () => {
-    var app = TestUtils.renderIntoDocument(<App message="Hello" />);
+    var app = TestUtils.renderIntoDocument(<App />);
     TestUtils.isCompositeComponent(app).should.be.true;
   });
 });

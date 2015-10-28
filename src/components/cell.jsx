@@ -25,4 +25,4 @@ export default class Cell extends Component {
     var className = this.cellClassName();
     return <div className={className} onClick={this.toggleLife}></div>;
   }
-};
+}
