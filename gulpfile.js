@@ -13,7 +13,19 @@ gulp.task('build', function () {
   .transform(babelify)
   .bundle()
   .pipe(source('bundle.js'))
-  .pipe(gulp.dest('tmp'));
+  .pipe(gulp.dest('./'));
+});
+
+gulp.task('dist', function () {
+  browserify({
+    entries: 'src/app.jsx',
+    extensions: ['.jsx'],
+    debug: true
+  })
+  .transform(babelify)
+  .bundle()
+  .pipe(source('build.js'));
+  .pipe(gulp.dest('./'));
 });
 
 gulp.task('watch', function() {
