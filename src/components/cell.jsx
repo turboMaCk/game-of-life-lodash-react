@@ -22,7 +22,7 @@ export default class Cell extends Component {
   }
 
   render() {
-    var className = this.cellClassName();
+    const className = this.cellClassName();
     return <div className={className} onClick={this.toggleLife}></div>;
   }
 }

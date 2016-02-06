@@ -23,8 +23,8 @@ export default class Board extends Component {
   }
 
   componentWillMount(props) {
-    props = this.props || this.defaultProps;
-    var boardState = _.times(props.rows, () => {
+    props = _.isEmpty(this.props) ? this.defaultProps : this.props;
+    const boardState = _.times(props.rows, () => {
       return _.times(props.cols, () => {
         return false;
       });
@@ -38,17 +38,17 @@ export default class Board extends Component {
   }
 
   getNeighbors(x, y) {
-    var state = this.state.boardState;
+    const state = this.state.boardState;
 
-    var helper = [-1,0,1];
+    const helper = [-1,0,1];
 
-    var neighbors = helper.map((offsetX) => {
-      var newX = x+offsetX;
+    const neighbors = helper.map((offsetX) => {
+      const newX = x+offsetX;
 
       if (!state[newX]) { return; }
 
       return helper.map((offsetY) => {
-        var newY = y + offsetY;
+        const newY = y + offsetY;
         return (offsetY === 0 && offsetX === 0) ? undefined : state[newX][newY];
       });
     });
@@ -63,18 +63,18 @@ export default class Board extends Component {
   }
 
   cellWillDie(x, y) {
-    var aliveNeighborCount = this.aliveNeighborCount(x, y);
+    const aliveNeighborCount = this.aliveNeighborCount(x, y);
     return (aliveNeighborCount < 2 || aliveNeighborCount > 3);
   }
 
   cellWillBeBorn(x, y) {
-    var aliveNeighborCount = this.aliveNeighborCount(x, y);
+    const aliveNeighborCount = this.aliveNeighborCount(x, y);
     return aliveNeighborCount === 3;
   }
 
   toggleCell(x, y) {
-    var state = this.state.boardState;
-    var newState = _.clone(state);
+    const state = this.state.boardState;
+    let newState = _.clone(state);
 
     newState[x][y] = !newState[x][y];
 
@@ -82,8 +82,8 @@ export default class Board extends Component {
   }
 
   nextGeneration() {
-    var currentGeneration = _.clone(this.state.boardState);
-    var nextGeneration = currentGeneration.map((row, x) => {
+    const currentGeneration = _.clone(this.state.boardState);
+    const nextGeneration = currentGeneration.map((row, x) => {
       return row.map((alive, y) => {
         if (alive) {
           return !this.cellWillDie(x, y);
@@ -113,11 +113,11 @@ export default class Board extends Component {
   }
 
   render() {
-    var action = this.toggleCell;
+    const action = this.toggleCell;
 
-    var board = this.state.boardState.map((col, x) => {
-      var cels = col.map((alive, y) => {
-        var willDie, willBeBorn;
+    const board = this.state.boardState.map((col, x) => {
+      const cels = col.map((alive, y) => {
+        let willDie, willBeBorn;
         if (this.state.forecast) {
           willDie = this.cellWillDie(x, y);
           willBeBorn = this.cellWillBeBorn(x, y);
@@ -141,4 +141,3 @@ export default class Board extends Component {
     </div>;
   }
 };
-
